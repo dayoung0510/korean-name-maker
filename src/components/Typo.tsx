@@ -19,7 +19,7 @@ const Typo = ({
   $color = '#000',
   $tag = 'p',
   $size = 16,
-  $weight = 400,
+  $weight = 500,
   $align = 'left',
   children,
   ...props
@@ -42,6 +42,7 @@ export default Typo;
 
 const StyledWrapper = styled.div<StyledWrapperProps>`
   white-space: pre-wrap;
+  font-family: 'Pretendard';
 
   ${(props) => {
     return css`

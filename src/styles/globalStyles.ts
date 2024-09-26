@@ -46,7 +46,7 @@ a {
 
   @font-face {
     font-family: 'Pretendard';
-    font-weight: 400;
+    font-weight: 500;
     src: url(/fonts/Pretendard-Medium.eot);
     src: url(/fonts/Pretendard-Medium.eot?#iefix) format('embedded-opentype'),
     url(/fonts/Pretendard-Medium.woff2) format('woff2'),

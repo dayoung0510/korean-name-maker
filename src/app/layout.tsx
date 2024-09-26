@@ -49,5 +49,6 @@ const Container = styled.div`
     flex: 1;
     position: relative;
     flex-direction: column;
+    overflow-x: auto;
   }
 `;
