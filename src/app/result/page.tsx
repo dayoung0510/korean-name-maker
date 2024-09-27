@@ -9,10 +9,16 @@ import Flex from '@/components/Flex';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Button from '@/components/Button';
 import ShareIcons from '@/components/ShareIcons';
+import { useEffect, useState } from 'react';
 
 const ResultPage = () => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id');
+  const [id, setId] = useState<string>();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(document.location.search);
+    const value: string = searchParams.get('id') ?? '';
+    setId(value);
+  }, []);
 
   const router = useRouter();
 
@@ -28,6 +34,8 @@ const ResultPage = () => {
     },
     enabled: !!id,
   });
+
+  console.log(data);
 
   return (
     <Container>

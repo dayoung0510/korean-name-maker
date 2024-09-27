@@ -13,38 +13,46 @@ import {
   TelegramShareButton,
   TelegramIcon,
 } from 'react-share';
+import { useEffect, useState } from 'react';
 
 const ShareIcons = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  const currentUrl = `${
-    window.location.origin
-  }${pathname}?${searchParams.toString()}`;
+  const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(document.location.search);
+      const value = `${
+        window.location.origin
+      }${pathname}?${searchParams.toString()}`;
+      setUrl(value);
+    }
+  }, []);
 
   const share = () => {
     navigator.share({
       title: '우리말 이름 짓기',
-      url: currentUrl,
+      url,
     });
   };
 
   return (
     <Container>
       <Flex $gap={{ column: 10 }}>
-        <FacebookShareButton url={currentUrl}>
+        <FacebookShareButton url={url}>
           <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
         </FacebookShareButton>
 
-        <TwitterShareButton url={currentUrl}>
+        <TwitterShareButton url={url}>
           <XIcon size={48} round={true} borderRadius={24}></XIcon>
         </TwitterShareButton>
 
-        <TelegramShareButton url={currentUrl}>
+        <TelegramShareButton url={url}>
           <TelegramIcon size={48} round={true} borderRadius={24}></TelegramIcon>
         </TelegramShareButton>
 
-        <LineShareButton url={currentUrl}>
+        <LineShareButton url={url}>
           <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
         </LineShareButton>
 

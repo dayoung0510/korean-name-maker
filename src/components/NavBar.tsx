@@ -3,21 +3,29 @@
 import styled from 'styled-components';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const NavBar = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const currentUrl = `${
-    window.location.origin
-  }${pathname}?${searchParams.toString()}`;
+  const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(document.location.search);
+      const value = `${
+        window.location.origin
+      }${pathname}?${searchParams.toString()}`;
+      setUrl(value);
+    }
+  }, []);
 
   const share = () => {
     navigator.share({
       title: '우리말 이름 짓기',
-      url: currentUrl,
+      url,
     });
   };
 

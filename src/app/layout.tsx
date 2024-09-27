@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { GlobalStyle } from '@/styles/globalStyles';
 import styled from 'styled-components';
 import StyledComponentsRegistry from '@/lib/registry';
@@ -32,7 +33,10 @@ export default function RootLayout({
             <ThemeProvider theme={theme}>
               <Container>
                 <NavBar />
-                <div className="content-wrapper">{children}</div>
+
+                <div className="content-wrapper">
+                  <Suspense fallback={<></>}>{children}</Suspense>
+                </div>
               </Container>
             </ThemeProvider>
           </StyledComponentsRegistry>
