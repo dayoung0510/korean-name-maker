@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 import { getResult } from '@/apis';
 import { useQuery } from '@tanstack/react-query';
@@ -9,10 +8,13 @@ import Typo from '@/components/Typo';
 import Flex from '@/components/Flex';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Button from '@/components/Button';
+import ShareIcons from '@/components/ShareIcons';
 
 const ResultPage = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
+
+  const router = useRouter();
 
   const isMobile = useMediaQuery();
 
@@ -67,9 +69,11 @@ const ResultPage = () => {
             <AdditionalBox>하나</AdditionalBox>
           </Grid>
 
-          <ShadowBox>공유</ShadowBox>
+          <ShareIcons />
 
-          <Button variant="fillBlack">다른 이름 지어보기</Button>
+          <Button variant="fillBlack" onClick={() => router.push('/')}>
+            다른 이름 지어보기
+          </Button>
         </Flex>
       </Flex>
     </Container>
@@ -127,6 +131,7 @@ const AdditionalBox = styled.div`
   padding: 16px 40px;
   border-radius: 10px;
   min-width: 100px;
+  white-space: nowrap;
 `;
 
 const DecoImage = styled.div`

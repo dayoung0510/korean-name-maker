@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import Flex from '@/components/Flex';
 import Typo from '@/components/Typo';
 import Button from '@/components/Button';
+import ShareIcons from './ShareIcons';
 
 type Props = {
   open: boolean;
@@ -48,11 +49,9 @@ const Modal = ({ onClose, open }: Props) => {
                   <Typo $size={20}>이미 아름다운 이름을 갖고 계셨군요!</Typo>
                 </Flex>
 
-                <Flex $direction="column" $gap={{ row: 10 }}>
+                <Flex $direction="column" $gap={{ row: 10 }} $isFull>
                   <Typo>주변 사람들에게도 새 이름을 선물해 주세요.</Typo>
-                  <div style={{ border: '1px solid gray', width: '100%' }}>
-                    공유영역
-                  </div>
+                  <ShareIcons />
                 </Flex>
 
                 <Button variant="fillBlack" onClick={handleClose}>
