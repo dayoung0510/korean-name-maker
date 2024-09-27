@@ -1,5 +1,6 @@
 'use client';
 
+import { ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
 type ButtonVariantType =
@@ -8,10 +9,10 @@ type ButtonVariantType =
   | 'outlinedBlue'
   | 'outlinedBlack';
 
-type ButtonProps = {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant: ButtonVariantType;
-};
+}
 
 const buttonStyles: Record<ButtonVariantType, ReturnType<typeof css>> = {
   fillBlack: css`
@@ -34,8 +35,12 @@ const buttonStyles: Record<ButtonVariantType, ReturnType<typeof css>> = {
   `,
 };
 
-const Button = ({ children, variant }: ButtonProps) => {
-  return <StyledButton $variant={variant}>{children}</StyledButton>;
+const Button = ({ children, variant, ...props }: ButtonProps) => {
+  return (
+    <StyledButton $variant={variant} {...props}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;

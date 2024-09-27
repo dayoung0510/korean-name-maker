@@ -6,6 +6,16 @@ import StyledComponentsRegistry from '@/lib/registry';
 import { ThemeProvider } from 'styled-components';
 import theme from '@/styles/theme';
 import NavBar from '@/components/NavBar';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 export default function RootLayout({
   children,
@@ -16,15 +26,17 @@ export default function RootLayout({
     <html lang="ko">
       <head></head>
       <body>
-        <StyledComponentsRegistry>
-          <GlobalStyle />
-          <ThemeProvider theme={theme}>
-            <Container>
-              <NavBar />
-              <div className="content-wrapper">{children}</div>
-            </Container>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <QueryClientProvider client={queryClient}>
+          <StyledComponentsRegistry>
+            <GlobalStyle />
+            <ThemeProvider theme={theme}>
+              <Container>
+                <NavBar />
+                <div className="content-wrapper">{children}</div>
+              </Container>
+            </ThemeProvider>
+          </StyledComponentsRegistry>
+        </QueryClientProvider>
       </body>
     </html>
   );

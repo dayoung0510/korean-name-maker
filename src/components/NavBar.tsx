@@ -2,13 +2,20 @@
 
 import styled from 'styled-components';
 import Flex from '@/components/Flex';
+import Icon from '@/components/Icon';
 
 const NavBar = () => {
   return (
     <Container $justify="center" $gap={{ column: 64 }}>
-      <p>인스타</p>
+      <IconWrapper>
+        <Icon size={24} name="insta" />
+      </IconWrapper>
+
       <p>AFTERDINNERCLUB</p>
-      <p>공유버튼</p>
+
+      <IconWrapper>
+        <Icon size={24} name="share" />
+      </IconWrapper>
     </Container>
   );
 };
@@ -25,4 +32,10 @@ const Container = styled(Flex)`
 
   font-family: 'Arial';
   font-weight: 900;
+`;
+const IconWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
