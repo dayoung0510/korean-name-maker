@@ -39,6 +39,9 @@ const ResultPage = () => {
       // 상태가 waiting이면 2초 간격으로 폴링
       if (data.state.data?.data.status === 'wait') {
         return 2000;
+      } else if (data.state.data?.data.status === 'done') {
+        setLoading(false);
+        return false;
       }
 
       return false;
@@ -48,13 +51,6 @@ const ResultPage = () => {
 
   console.log(data);
   console.log(loading, 'l');
-
-  useEffect(() => {
-    if (data && data.data) {
-      console.log('로딩풀어유');
-      setLoading(false);
-    }
-  }, [data]);
 
   return loading ? (
     <Loading />
@@ -74,12 +70,7 @@ const ResultPage = () => {
           </div>
         </Flex>
 
-        <Flex
-          $direction="column"
-          $gap={{ row: 40 }}
-          $isFull
-          style={{ marginTop: '20px' }}
-        >
+        <Flex $direction="column" $gap={{ row: 40 }} $isFull>
           <Flex
             $direction="column"
             $gap={{ row: 21 }}
