@@ -54,7 +54,7 @@ const Modal = ({ onClose, open }: Props) => {
                   <ShareIcons />
                 </Flex>
 
-                <Button variant="fillBlack" onClick={handleClose}>
+                <Button variant="fillBlack" onClick={onClose}>
                   돌아가기
                 </Button>
               </Flex>

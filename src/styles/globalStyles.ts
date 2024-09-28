@@ -32,6 +32,7 @@ button {
 input {
   outline: 0;
   border: 0;
+  font-size: 16px;
 }
 
 a {
