@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 
 const defaultClient = axios.create({
-  baseURL: 'http://1.225.87.231:5252',
+  // baseURL: 'http://1.225.87.231:5252',
+  baseURL: 'https://api.afterdinnerclub.kr',
   withCredentials: true,
 });
 

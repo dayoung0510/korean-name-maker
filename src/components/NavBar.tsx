@@ -32,7 +32,12 @@ const NavBar = () => {
   return (
     <Container $justify="center" $gap={{ column: 64 }}>
       <IconWrapper>
-        <Icon size={24} name="insta" />
+        <a
+          href="https://www.instagram.com/afterdinnerclub.kr?igsh=OWQzaHFiZ2dlMXI="
+          target="_blank"
+        >
+          <Icon size={24} name="insta" />
+        </a>
       </IconWrapper>
 
       <Title onClick={() => router.push('/')}>AFTERDINNERCLUB</Title>

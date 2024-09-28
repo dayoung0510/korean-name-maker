@@ -87,10 +87,6 @@ const AppPage = () => {
           onSuccess: (data) => {
             router.push(`/result?id=${data.data.id}`);
           },
-          onError: () => {
-            // TODO!! 임시로 처리
-            router.push(`/result?id=aaaa`);
-          },
         },
       );
     }
@@ -200,8 +196,8 @@ const AppPage = () => {
                       <Typo $size={14}>
                         지금까지{' '}
                         {data?.data.count
-                          ? data?.data.count.toLocaleString()
-                          : '-'}
+                          ? data?.data.count?.toLocaleString()
+                          : 0}
                         명이 함께 했어요.
                       </Typo>
                     )}
@@ -214,7 +210,7 @@ const AppPage = () => {
                 {!isMobile && (
                   <Typo>
                     지금까지{' '}
-                    {data?.data.count ? data?.data.count.toLocaleString() : '-'}
+                    {data?.data.count ? data?.data.count?.toLocaleString() : 0}
                     명이 함께 했어요.
                   </Typo>
                 )}
