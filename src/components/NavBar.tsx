@@ -11,6 +11,7 @@ const NavBar = () => {
   const router = useRouter();
 
   const [url, setUrl] = useState('');
+  const [isKoreanLogo, setIsKoreanLogo] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -40,7 +41,9 @@ const NavBar = () => {
         </a>
       </IconWrapper>
 
-      <Title onClick={() => router.push('/')}>AFTERDINNERCLUB</Title>
+      <LogoWrapper onClick={() => setIsKoreanLogo((prev) => !prev)}>
+        {isKoreanLogo ? <KrLogo /> : <EnLogo />}
+      </LogoWrapper>
 
       <IconWrapper onClick={share}>
         <Icon size={24} name="share" />
@@ -69,6 +72,37 @@ const IconWrapper = styled.div`
   align-items: center;
 `;
 
-const Title = styled.p`
+const EnLogo = styled.div`
+  background-image: url('/images/logo_en.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+
+  width: 177px;
+  height: 23px;
+`;
+
+const LogoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 177px;
+  height: 23px;
   cursor: pointer;
+`;
+
+const KrLogo = styled.div`
+  background-image: url('/images/logo_kr.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+
+  width: 104px;
+  height: 23px;
 `;

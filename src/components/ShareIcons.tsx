@@ -37,6 +37,16 @@ const ShareIcons = () => {
     });
   };
 
+  const shareOnInstagram = () => {
+    const url = 'https://your-website-link.com'; // 공유하려는 링크
+    const text = encodeURIComponent('Check out this awesome content!');
+
+    const shareUrl = `https://www.instagram.com/?url=${url}`;
+
+    // 새로운 창으로 열기
+    window.open(shareUrl, '_blank');
+  };
+
   return (
     <Container>
       <Flex $gap={{ column: 10 }}>
@@ -55,6 +65,8 @@ const ShareIcons = () => {
         <LineShareButton url={url}>
           <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
         </LineShareButton>
+
+        <div onClick={shareOnInstagram}>인스타</div>
 
         <More onClick={share}>더보기</More>
       </Flex>

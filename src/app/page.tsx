@@ -231,7 +231,7 @@ export default AppPage;
 const Background = styled(Flex)`
   background-color: #f3f3f3;
   height: 100%;
-  margin: 160px 0;
+  margin: 100px 0;
 `;
 
 const StyledTypo = styled.p`
