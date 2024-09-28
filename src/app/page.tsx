@@ -71,7 +71,11 @@ const AppPage = () => {
       return alert('이름을 입력해주세요.');
     } else if (!formData.gender) {
       return alert('성별을 입력해주세요.');
-    } else if (formData.gender !== '남' && formData.gender !== '여') {
+    } else if (
+      formData.gender !== '남' &&
+      formData.gender !== '여' &&
+      formData.gender !== '상관없음'
+    ) {
       return alert('성별을 정확하게 입력해주세요.');
     }
 
@@ -172,7 +176,7 @@ const AppPage = () => {
                       <Input
                         $width={isMobile ? 270 : 278}
                         {...field}
-                        placeholder="남/여"
+                        placeholder="남/여/상관없음"
                       />
                     )}
                   />
@@ -181,7 +185,7 @@ const AppPage = () => {
 
               <Flex $direction="column" $gap={{ row: 20 }}>
                 <Flex
-                  $direction={isMobile ? 'column' : 'row'}
+                  style={{ flexDirection: isMobile ? 'column-reverse' : 'row' }}
                   $gap={{ row: 20, column: 20 }}
                 >
                   <Flex $direction="column" $gap={{ row: 10 }}>
@@ -192,28 +196,17 @@ const AppPage = () => {
                     >
                       이미 우리말 이름이에요
                     </Button>
-                    {isMobile && (
-                      <Typo $size={14}>
-                        지금까지{' '}
-                        {data?.data.count
-                          ? data?.data.count?.toLocaleString()
-                          : 0}
-                        명이 함께 했어요.
-                      </Typo>
-                    )}
                   </Flex>
                   <Button type="submit" variant="fillBlack">
                     우리말 이름 짓기
                   </Button>
                 </Flex>
 
-                {!isMobile && (
-                  <Typo>
-                    지금까지{' '}
-                    {data?.data.count ? data?.data.count?.toLocaleString() : 0}
-                    명이 함께 했어요.
-                  </Typo>
-                )}
+                <Typo $size={isMobile ? 14 : 16}>
+                  지금까지{' '}
+                  {data?.data.count ? data?.data.count?.toLocaleString() : 0}
+                  명이 함께 했어요.
+                </Typo>
               </Flex>
             </Flex>
           </form>
@@ -230,8 +223,7 @@ export default AppPage;
 
 const Background = styled(Flex)`
   background-color: #f3f3f3;
-  height: 100%;
-  margin: 100px 0;
+  margin: 80px 0 120px 0;
 `;
 
 const StyledTypo = styled.p`
