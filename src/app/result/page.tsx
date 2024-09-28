@@ -1,6 +1,7 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { getResult } from '@/apis';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +10,7 @@ import Flex from '@/components/Flex';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Button from '@/components/Button';
 import ShareIcons from '@/components/ShareIcons';
-import { useEffect, useState } from 'react';
+import Loading from '@/components/Loading';
 
 const ResultPage = () => {
   const [id, setId] = useState<string>();
@@ -22,22 +23,42 @@ const ResultPage = () => {
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(true);
+
   const isMobile = useMediaQuery();
 
   // 결과데이터 가져오기
   const { data } = useQuery({
-    queryKey: ['count'],
+    queryKey: ['result', id],
     queryFn: () => {
       if (!!id) {
         return getResult(id);
       }
     },
+    refetchInterval: (data) => {
+      // 상태가 waiting이면 2초 간격으로 폴링
+      if (data.state.data?.data.status === 'wait') {
+        return 2000;
+      }
+
+      return false;
+    },
     enabled: !!id,
   });
 
   console.log(data);
+  console.log(loading, 'l');
 
-  return (
+  useEffect(() => {
+    if (data && data.data) {
+      console.log('로딩풀어유');
+      setLoading(false);
+    }
+  }, [data]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <Container>
       <Flex $direction="column" $gap={{ row: isMobile ? 60 : 40 }} $isFull>
         <Flex $direction="column" $gap={{ row: 6 }}>
@@ -66,7 +87,7 @@ const ResultPage = () => {
             $isFull
           >
             <Typo
-              $align="center"
+              $align={isMobile ? 'left' : 'center'}
               style={{ lineHeight: 1.4 }}
             >{`돋우리와 비슷한 의미를 가진\n우리말 단어를 더 알려드릴게요.`}</Typo>
           </Flex>
