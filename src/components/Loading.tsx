@@ -11,7 +11,7 @@ const Loading = () => {
   useEffect(() => {
     // 0.5초마다 dots 개수를 변경하는 타이머
     const interval = setInterval(() => {
-      setDots((prevDots) => (prevDots % 3) + 1); // 1 -> 2 -> 3 -> 1 순환
+      setDots((prevDots) => (prevDots % 5) + 1);
     }, 500);
 
     // 컴포넌트 언마운트 시 타이머 정리

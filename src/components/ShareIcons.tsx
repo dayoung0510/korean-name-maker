@@ -21,11 +21,26 @@ const ShareIcons = () => {
     }
   }, []);
 
+  const [test, setTest] = useState(false);
+
   const share = () => {
-    navigator.share({
-      title: '우리말 이름 짓기',
-      url,
-    });
+    if (test) {
+      navigator
+        .share({ title: '우리말 이름 짓기', url })
+        .then(() => {
+          alert('Sharing was successful!');
+          // 공유 성공 시 실행할 코드
+        })
+        .catch((error) => {
+          navigator.clipboard.writeText(url);
+          alert(`링크가 복사되었습니다.`);
+          console.log(error, 'err..');
+          // 공유 실패 시 실행할 코드
+        });
+    } else {
+      navigator.clipboard.writeText(url);
+      alert(`링크가 복사되었습니다.`);
+    }
   };
 
   return (
