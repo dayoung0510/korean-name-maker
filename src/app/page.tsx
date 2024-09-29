@@ -244,9 +244,14 @@ const TrashDiv = styled(AddDiv)`
 
 const StyledSelect = styled.select`
   border: 0;
-  background-color: 0;
   width: 100%;
   outline: 0;
+
+  appearance: none; /* 기본 스타일 제거 (웹킷 브라우저) */
+  -webkit-appearance: none; /* iOS Safari 등에서 기본 화살표 제거 */
+  -moz-appearance: none; /* Firefox에서 기본 스타일 제거 */
+  background-color: transparent; /* 배경 투명하게 */
+  font-size: 16px; /* 폰트 크기를 16px 이상으로 */
 `;
 const FakeSelectDiv = styled.div`
   border-radius: 10px;
