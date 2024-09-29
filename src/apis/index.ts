@@ -21,9 +21,11 @@ export const getResult = (
   id: string,
 ): Promise<
   AxiosResponse<{
-    name: string;
-    reason: string;
-    recommends: string[];
+    result: {
+      name: string;
+      reason: string;
+      wishingWord: string;
+    };
     status: string;
   }>
 > => {

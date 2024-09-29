@@ -56,16 +56,16 @@ const ResultPage = () => {
       <Flex $direction="column" $gap={{ row: isMobile ? 60 : 40 }} $isFull>
         <Flex $direction="column" $gap={{ row: 6 }}>
           <Typo>당신의 우리말 이름은</Typo>
-          <NameTypo>{data?.data.name}</NameTypo>
+          <NameTypo>{data?.data.result.name}</NameTypo>
         </Flex>
         <Flex $direction="column" $gap={{ row: isMobile ? 30 : 40 }} $isFull>
           <ShadowBox>
-            <Text>{data?.data.reason}</Text>
+            <Text>{data?.data.result.reason}</Text>
           </ShadowBox>
 
           <div style={{ position: 'relative', width: '100%' }}>
             <ShadowBox>
-              <Text>---</Text>
+              <Text>{data?.data.result.wishingWord}</Text>
             </ShadowBox>
             <DecoImage />
           </div>
