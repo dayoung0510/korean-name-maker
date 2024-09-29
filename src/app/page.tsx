@@ -252,6 +252,7 @@ const StyledSelect = styled.select`
   -moz-appearance: none; /* Firefox에서 기본 스타일 제거 */
   background-color: transparent; /* 배경 투명하게 */
   font-size: 16px; /* 폰트 크기를 16px 이상으로 */
+  color: #000;
 `;
 const FakeSelectDiv = styled.div`
   border-radius: 10px;
