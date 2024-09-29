@@ -28,7 +28,6 @@ const ShareIcons = () => {
         .then(() => {})
         .catch((error) => {
           navigator.clipboard.writeText(url);
-          alert(`링크가 복사되었습니다.`);
         });
     } else {
       navigator.clipboard.writeText(url);

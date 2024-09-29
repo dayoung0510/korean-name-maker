@@ -1,6 +1,5 @@
 'use client';
 
-import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -95,16 +94,6 @@ const AppPage = () => {
 
   return (
     <>
-      <Head>
-        <meta property="og:title" content="우리말로 이름을 불러줘" />
-        <meta
-          property="og:description"
-          content="한글날 기념 우리말 이름 짓기"
-        />
-        <meta property="og:image" content="/images/ADC_img.png" />
-        <meta property="og:url" content="https://afterdinnerclub.kr/" />
-        <meta property="og:type" content="website" />
-      </Head>
       <Background $justify="center" $align="start">
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
           <Flex $direction="column" $gap={{ row: 60 }}>
