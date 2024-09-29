@@ -17,6 +17,15 @@ export const postName = (payload: {
   return defaultClient.post(`/`, payload);
 };
 
-export const getResult = (id: string) => {
+export const getResult = (
+  id: string,
+): Promise<
+  AxiosResponse<{
+    name: string;
+    reason: string;
+    recommends: string[];
+    status: string;
+  }>
+> => {
   return defaultClient.get(`/result/${id}`);
 };

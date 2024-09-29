@@ -52,11 +52,10 @@ const Modal = ({ onClose, open }: Props) => {
                 <Flex $direction="column" $gap={{ row: 10 }} $isFull>
                   <Typo>주변 사람들에게도 새 이름을 선물해 주세요.</Typo>
                   <ShareIcons />
+                  <Button variant="fillBlack" onClick={onClose}>
+                    돌아가기
+                  </Button>
                 </Flex>
-
-                <Button variant="fillBlack" onClick={onClose}>
-                  돌아가기
-                </Button>
               </Flex>
             </StyledModalBody>
           </StyledModal>

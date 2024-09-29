@@ -24,10 +24,10 @@ const AppPage = () => {
 
   const router = useRouter();
 
-  const { control, handleSubmit } = useForm<FormDataType>({
+  const { control, handleSubmit, setValue } = useForm<FormDataType>({
     defaultValues: {
       names: [{ value: '' }, { value: '' }, { value: '' }],
-      gender: undefined,
+      gender: 'M',
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -67,14 +67,6 @@ const AppPage = () => {
       return alert('성을 입력해주세요.');
     } else if (!result[1]) {
       return alert('이름을 입력해주세요.');
-    } else if (!formData.gender) {
-      return alert('성별을 입력해주세요.');
-    } else if (
-      formData.gender !== '남' &&
-      formData.gender !== '여' &&
-      formData.gender !== '상관없음'
-    ) {
-      return alert('성별을 정확하게 입력해주세요.');
     }
 
     if (result.length > 1 && !!formData.gender) {
@@ -160,11 +152,18 @@ const AppPage = () => {
                 name={`gender`}
                 control={control}
                 render={({ field }) => (
-                  <Input
-                    $width={isMobile ? 270 : 278}
-                    {...field}
-                    placeholder="남/여/상관없음"
-                  />
+                  <FakeSelectDiv>
+                    <StyledSelect
+                      defaultValue={'M'}
+                      onChange={(e) => {
+                        setValue('gender', e.target.value);
+                      }}
+                    >
+                      <option value="M">남</option>
+                      <option value="W">여</option>
+                      <option value="N">공개안함</option>
+                    </StyledSelect>
+                  </FakeSelectDiv>
                 )}
               />
             </Flex>
@@ -184,16 +183,27 @@ const AppPage = () => {
                   이미 우리말 이름이에요
                 </Button>
               </Flex>
-              <Button type="submit" variant="fillBlack">
-                우리말 이름 짓기
-              </Button>
+              <Flex $direction="column" $gap={{ row: 10 }}>
+                <Button type="submit" variant="fillBlack">
+                  우리말 이름 짓기
+                </Button>
+                {isMobile && (
+                  <Typo $size={isMobile ? 14 : 16}>
+                    지금까지{' '}
+                    {data?.data.count ? data?.data.count?.toLocaleString() : 0}
+                    명이 함께 했어요.
+                  </Typo>
+                )}
+              </Flex>
             </Flex>
 
-            <Typo $size={isMobile ? 14 : 16}>
-              지금까지{' '}
-              {data?.data.count ? data?.data.count?.toLocaleString() : 0}
-              명이 함께 했어요.
-            </Typo>
+            {!isMobile && (
+              <Typo $size={isMobile ? 14 : 16}>
+                지금까지{' '}
+                {data?.data.count ? data?.data.count?.toLocaleString() : 0}
+                명이 함께 했어요.
+              </Typo>
+            )}
           </Flex>
         </Flex>
       </form>
@@ -230,4 +240,22 @@ const AddDiv = styled.div`
 const TrashDiv = styled(AddDiv)`
   position: absolute;
   right: -36px;
+`;
+
+const StyledSelect = styled.select`
+  border: 0;
+  background-color: 0;
+  width: 100%;
+  outline: 0;
+`;
+const FakeSelectDiv = styled.div`
+  border-radius: 10px;
+  padding: 14px 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  width: 278px;
+
+  ${({ theme }) => theme.device.mobile} {
+    width: 270px;
+  }
 `;

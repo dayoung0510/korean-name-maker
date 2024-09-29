@@ -1,19 +1,10 @@
 'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import Flex from '@/components/Flex';
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  LineShareButton,
-  LineIcon,
-  XIcon,
-  TelegramShareButton,
-  TelegramIcon,
-} from 'react-share';
-import { useEffect, useState } from 'react';
+import Button from '@/components/Button';
 
 const ShareIcons = () => {
   const pathname = usePathname();
@@ -40,23 +31,9 @@ const ShareIcons = () => {
   return (
     <Container>
       <Flex $gap={{ column: 10 }}>
-        <FacebookShareButton url={url}>
-          <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
-        </FacebookShareButton>
-
-        <TwitterShareButton url={url}>
-          <XIcon size={48} round={true} borderRadius={24}></XIcon>
-        </TwitterShareButton>
-
-        <TelegramShareButton url={url}>
-          <TelegramIcon size={48} round={true} borderRadius={24}></TelegramIcon>
-        </TelegramShareButton>
-
-        <LineShareButton url={url}>
-          <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
-        </LineShareButton>
-
-        <More onClick={share}>더보기</More>
+        <Button variant="outlinedBlack" onClick={share}>
+          친구와 공유하기
+        </Button>
       </Flex>
     </Container>
   );
@@ -69,9 +46,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 32px 0;
-  background-color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
 const More = styled.p`
