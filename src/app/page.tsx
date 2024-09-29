@@ -1,5 +1,6 @@
 'use client';
 
+import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -93,124 +94,138 @@ const AppPage = () => {
   const { mutate } = useMutation({ mutationFn: postName });
 
   return (
-    <Background $justify="center" $align="start">
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-        <Flex $direction="column" $gap={{ row: 60 }}>
-          <Flex $direction="column" $gap={{ row: 6 }}>
-            <StyledTypo>{`우리말로\n이름을 불러줘`}</StyledTypo>
-            <Typo $size={20}>한글날 기념 우리말 이름 짓기</Typo>
-          </Flex>
+    <>
+      <Head>
+        <meta property="og:title" content="우리말로 이름을 불러줘" />
+        <meta
+          property="og:description"
+          content="한글날 기념 우리말 이름 짓기"
+        />
+        <meta property="og:image" content="/images/ADC_img.png" />
+        <meta property="og:url" content="https://afterdinnerclub.kr/" />
+        <meta property="og:type" content="website" />
+      </Head>
+      <Background $justify="center" $align="start">
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+          <Flex $direction="column" $gap={{ row: 60 }}>
+            <Flex $direction="column" $gap={{ row: 6 }}>
+              <StyledTypo>{`우리말로\n이름을 불러줘`}</StyledTypo>
+              <Typo $size={20}>한글날 기념 우리말 이름 짓기</Typo>
+            </Flex>
 
-          <Flex $direction="column" $gap={{ row: 21 }}>
-            <Flex $direction="column" $gap={{ row: isMobile ? 10 : 20 }}>
+            <Flex $direction="column" $gap={{ row: 21 }}>
+              <Flex $direction="column" $gap={{ row: isMobile ? 10 : 20 }}>
+                <Flex $direction="column" $gap={{ row: 10 }} $align="start">
+                  <Typo>내 이름*</Typo>
+                  <Flex
+                    $direction={isMobile ? 'column' : 'row'}
+                    $gap={{ column: 20, row: 10 }}
+                  >
+                    {fields.map((field, index) => {
+                      return (
+                        <Controller
+                          key={field.id}
+                          name={`names.${index}.value`}
+                          control={control}
+                          render={({ field }) => (
+                            <Flex
+                              $gap={{ column: 10 }}
+                              style={{ position: 'relative' }}
+                            >
+                              <Input
+                                $width={isMobile ? 270 : 278}
+                                {...field}
+                                placeholder={getPlaceholder(index)}
+                              />
+                              {index === fields.length - 1 && index > 1 && (
+                                <TrashDiv onClick={() => handleDelete(index)}>
+                                  <Icon name="trash" size={24} />
+                                </TrashDiv>
+                              )}
+                            </Flex>
+                          )}
+                        />
+                      );
+                    })}
+                  </Flex>
+                </Flex>
+
+                {fields.length < 4 && (
+                  <Flex $gap={{ column: 8 }} onClick={handleAdd}>
+                    <AddDiv>입력칸추가</AddDiv>
+                    <Icon name="plus" size={18} />
+                  </Flex>
+                )}
+              </Flex>
+
               <Flex $direction="column" $gap={{ row: 10 }} $align="start">
-                <Typo>내 이름*</Typo>
-                <Flex
-                  $direction={isMobile ? 'column' : 'row'}
-                  $gap={{ column: 20, row: 10 }}
-                >
-                  {fields.map((field, index) => {
-                    return (
-                      <Controller
-                        key={field.id}
-                        name={`names.${index}.value`}
-                        control={control}
-                        render={({ field }) => (
-                          <Flex
-                            $gap={{ column: 10 }}
-                            style={{ position: 'relative' }}
-                          >
-                            <Input
-                              $width={isMobile ? 270 : 278}
-                              {...field}
-                              placeholder={getPlaceholder(index)}
-                            />
-                            {index === fields.length - 1 && index > 1 && (
-                              <TrashDiv onClick={() => handleDelete(index)}>
-                                <Icon name="trash" size={24} />
-                              </TrashDiv>
-                            )}
-                          </Flex>
-                        )}
-                      />
-                    );
-                  })}
+                <Typo>성별</Typo>
+                <Controller
+                  name={`gender`}
+                  control={control}
+                  render={({ field }) => (
+                    <FakeSelectDiv>
+                      <StyledSelect
+                        defaultValue={'M'}
+                        onChange={(e) => {
+                          setValue('gender', e.target.value);
+                        }}
+                      >
+                        <option value="M">남</option>
+                        <option value="W">여</option>
+                        <option value="N">공개안함</option>
+                      </StyledSelect>
+                    </FakeSelectDiv>
+                  )}
+                />
+              </Flex>
+            </Flex>
+
+            <Flex $direction="column" $gap={{ row: 20 }}>
+              <Flex
+                style={{ flexDirection: isMobile ? 'column-reverse' : 'row' }}
+                $gap={{ row: 20, column: 20 }}
+              >
+                <Flex $direction="column" $gap={{ row: 10 }}>
+                  <Button
+                    type="button"
+                    variant="outlinedBlack"
+                    onClick={() => setModalOpen(true)}
+                  >
+                    이미 우리말 이름이에요
+                  </Button>
+                </Flex>
+                <Flex $direction="column" $gap={{ row: 10 }}>
+                  <Button type="submit" variant="fillBlack">
+                    우리말 이름 짓기
+                  </Button>
+                  {isMobile && (
+                    <Typo $size={isMobile ? 14 : 16}>
+                      지금까지{' '}
+                      {data?.data.count
+                        ? data?.data.count?.toLocaleString()
+                        : 0}
+                      명이 함께 했어요.
+                    </Typo>
+                  )}
                 </Flex>
               </Flex>
 
-              {fields.length < 4 && (
-                <Flex $gap={{ column: 8 }} onClick={handleAdd}>
-                  <AddDiv>입력칸추가</AddDiv>
-                  <Icon name="plus" size={18} />
-                </Flex>
+              {!isMobile && (
+                <Typo $size={isMobile ? 14 : 16}>
+                  지금까지{' '}
+                  {data?.data.count ? data?.data.count?.toLocaleString() : 0}
+                  명이 함께 했어요.
+                </Typo>
               )}
             </Flex>
-
-            <Flex $direction="column" $gap={{ row: 10 }} $align="start">
-              <Typo>성별</Typo>
-              <Controller
-                name={`gender`}
-                control={control}
-                render={({ field }) => (
-                  <FakeSelectDiv>
-                    <StyledSelect
-                      defaultValue={'M'}
-                      onChange={(e) => {
-                        setValue('gender', e.target.value);
-                      }}
-                    >
-                      <option value="M">남</option>
-                      <option value="W">여</option>
-                      <option value="N">공개안함</option>
-                    </StyledSelect>
-                  </FakeSelectDiv>
-                )}
-              />
-            </Flex>
           </Flex>
-
-          <Flex $direction="column" $gap={{ row: 20 }}>
-            <Flex
-              style={{ flexDirection: isMobile ? 'column-reverse' : 'row' }}
-              $gap={{ row: 20, column: 20 }}
-            >
-              <Flex $direction="column" $gap={{ row: 10 }}>
-                <Button
-                  type="button"
-                  variant="outlinedBlack"
-                  onClick={() => setModalOpen(true)}
-                >
-                  이미 우리말 이름이에요
-                </Button>
-              </Flex>
-              <Flex $direction="column" $gap={{ row: 10 }}>
-                <Button type="submit" variant="fillBlack">
-                  우리말 이름 짓기
-                </Button>
-                {isMobile && (
-                  <Typo $size={isMobile ? 14 : 16}>
-                    지금까지{' '}
-                    {data?.data.count ? data?.data.count?.toLocaleString() : 0}
-                    명이 함께 했어요.
-                  </Typo>
-                )}
-              </Flex>
-            </Flex>
-
-            {!isMobile && (
-              <Typo $size={isMobile ? 14 : 16}>
-                지금까지{' '}
-                {data?.data.count ? data?.data.count?.toLocaleString() : 0}
-                명이 함께 했어요.
-              </Typo>
-            )}
-          </Flex>
-        </Flex>
-      </form>
-      {modalOpen && (
-        <Modal open={modalOpen} onClose={() => setModalOpen(false)} />
-      )}
-    </Background>
+        </form>
+        {modalOpen && (
+          <Modal open={modalOpen} onClose={() => setModalOpen(false)} />
+        )}
+      </Background>
+    </>
   );
 };
 
