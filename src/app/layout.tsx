@@ -38,7 +38,6 @@ export default function RootLayout({
         <meta property="og:image" content="/images/ADC_img.png" />
         <meta property="og:url" content="https://afterdinnerclub.kr/" />
         <meta property="og:type" content="website" />
-        <meta property="og:locale" content="ko_KR" />
       </head>
       <body>
         <QueryClientProvider client={queryClient}>

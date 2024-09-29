@@ -123,7 +123,7 @@ const ShadowBox = styled.div`
 const Text = styled.p`
   white-space: pre-wrap;
   font-size: 16px;
-  line-height: 21px;
+  line-height: 19px;
   text-align: center;
 `;
 const DecoImage = styled.div`
