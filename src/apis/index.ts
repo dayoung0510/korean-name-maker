@@ -12,7 +12,7 @@ export const getCount = (): Promise<AxiosResponse<{ count: number }>> => {
 
 export const postName = (payload: {
   names: string[];
-  gender: 'M' | 'W';
+  gender: string;
 }): Promise<AxiosResponse<{ id: string }>> => {
   return defaultClient.post(`/`, payload);
 };

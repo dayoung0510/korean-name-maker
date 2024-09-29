@@ -71,7 +71,7 @@ const AppPage = () => {
 
     if (result.length > 1 && !!formData.gender) {
       mutate(
-        { names: result, gender: formData.gender === '남' ? 'M' : 'W' },
+        { names: result, gender: formData.gender },
         {
           onSuccess: (data) => {
             router.push(`/result?id=${data.data.id}`);
